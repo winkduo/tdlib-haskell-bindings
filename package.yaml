@@ -1,6 +1,6 @@
-name:                tsearch
-version:             0.1.0
-github:              "nufeen/tglib-haskell-bindings"
+name:                tdlib-haskell-bindings
+version:             0.1.0.0
+github:              "egormkn/tdlib-haskell-bindings"
 license:             WTFPL
 author:              "Nufeen"
 maintainer:          "darwin@email.su"
@@ -8,25 +8,26 @@ copyright:           "Nufeen"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
+- CHANGELOG.md
 
 # Metadata used when publishing your package
-# synopsis:            tglib-haskell-bindings
-# category:            Web
+synopsis:            Haskell bindings for Telegram Database Library
+category:            Web
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/tsearch#readme>
+description:         Please see the README on GitHub at <https://github.com/egormkn/tdlib-haskell-bindings#readme>
 
 dependencies:
 - base >= 4.7 && < 5
 
 library:
   source-dirs: src
+  extra-libraries: tdjson
 
 executables:
-  tsearch-exe:
+  tdlib-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -34,4 +35,15 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - tsearch
+    - tdlib-haskell-bindings
+
+tests:
+  tdlib-haskell-bindings-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - tdlib-haskell-bindings
