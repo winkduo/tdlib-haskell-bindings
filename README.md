@@ -1,8 +1,8 @@
-# tglib-haskell-bindings (WIP)
+# tdlib-haskell-bindings
 
-[Telegram library](https://github.com/tdlib/td#using-json) haskell bindings example. Examples in other languages can be found [here](https://github.com/tdlib/td/tree/master/example)
+[Telegram Database Library](https://github.com/tdlib/td#using-json) (TDLib) haskell bindings example. Examples in other languages can be found [here](https://github.com/tdlib/td/tree/master/example)
 
-This example considers prebuilt dynamic `libtdjson.[so|dylib|dll]` in `src` folder.
+This example considers prebuilt dynamic `libtdjson.[so|dylib|dll]` in `lib` folder.
 
 # To execute:
 
