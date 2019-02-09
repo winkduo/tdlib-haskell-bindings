@@ -1,5 +1,7 @@
 .stack-work/
-tsearch.cabal
+*.cabal
 *~
 .DS_Store
-*.dylib
+lib/*.dylib
+lib/*.so
+lib/*.dll
