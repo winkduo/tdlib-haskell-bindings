@@ -7,6 +7,10 @@ module Telegram.Database.JSON
   , receiveJSON
   , receiveJSONWithTimeout
   , executeJSON
+  , send
+  , receive
+  , receiveWithTimeout
+  , execute
   , destroy
   )
 where
