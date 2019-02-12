@@ -1,4 +1,5 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
+{-# LANGUAGE LambdaCase #-}
 
 module Telegram.Database.JSON
   ( Client
@@ -12,14 +13,23 @@ module Telegram.Database.JSON
   , receiveWithTimeout
   , execute
   , destroy
+  , jsonOptions
   )
 where
 
 import           Data.Aeson                     ( FromJSON
                                                 , ToJSON
+                                                , Options
+                                                , SumEncoding ( TaggedObject )
                                                 , encode
                                                 , decode
                                                 , decodeStrict
+                                                , defaultOptions
+                                                , sumEncoding
+                                                , tagFieldName
+                                                , contentsFieldName
+                                                , constructorTagModifier
+                                                , tagSingleConstructors
                                                 )
 import           Data.ByteString                ( ByteString
                                                 , packCString
@@ -28,9 +38,10 @@ import           Data.ByteString                ( ByteString
 import           Data.ByteString.Lazy           ( fromStrict
                                                 , toStrict
                                                 )
+import           Data.Char                     as Char
 import           Foreign
 import           Foreign.C.String               ( CString )
-import           Foreign.C.Types                ( CDouble(..) )
+import           Foreign.C.Types                ( CDouble( CDouble ) )
 
 type Client   = Ptr ()
 type Request  = CString
@@ -81,3 +92,14 @@ safeCString :: CString -> IO (Maybe ByteString)
 safeCString str
   | str == nullPtr = return Nothing
   | otherwise      = Just <$> packCString str
+
+jsonOptions :: Options
+jsonOptions = defaultOptions {
+  sumEncoding = TaggedObject {
+    tagFieldName = "@type",
+    contentsFieldName = undefined
+  },
+  constructorTagModifier = \case
+    ""     -> ""
+    x : xs -> Char.toLower x : xs
+}
