@@ -12,6 +12,9 @@ module Telegram.Database.JSON
   , receive
   , receiveWithTimeout
   , execute
+  , receiveEither
+  , receiveEitherWithTimeout
+  , executeEither
   , destroy
   , jsonOptions
   )
