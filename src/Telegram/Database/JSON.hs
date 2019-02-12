@@ -24,6 +24,7 @@ import           Data.Aeson                     ( FromJSON
                                                 , encode
                                                 , decode
                                                 , decodeStrict
+                                                , eitherDecodeStrict
                                                 , defaultOptions
                                                 , sumEncoding
                                                 , tagFieldName
@@ -84,6 +85,17 @@ receiveWithTimeout timeout client =
 execute :: (ToJSON a, FromJSON b) => a -> Client -> IO (Maybe b)
 execute request client =
   (decodeStrict =<<) <$> (executeJSON . toStrict . encode) request client
+
+receiveEither :: FromJSON a => Client -> IO (Either String a)
+receiveEither = receiveEitherWithTimeout 1.0
+
+receiveEitherWithTimeout :: FromJSON a => Double -> Client -> IO (Either String a)
+receiveEitherWithTimeout timeout client =
+  maybe (Left "NULL") eitherDecodeStrict <$> receiveJSONWithTimeout timeout client
+
+executeEither :: (ToJSON a, FromJSON b) => a -> Client -> IO (Either String b)
+executeEither request client =
+  maybe (Left "NULL") eitherDecodeStrict <$> (executeJSON . toStrict . encode) request client
 
 destroy :: Client -> IO ()
 destroy = c_destroy
