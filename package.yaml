@@ -27,6 +27,7 @@ library:
   dependencies:
   - aeson
   - bytestring
+  - text
   extra-libraries: tdjson
 
 executables:
