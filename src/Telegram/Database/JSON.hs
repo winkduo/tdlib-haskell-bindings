@@ -20,21 +20,7 @@ module Telegram.Database.JSON
   )
 where
 
-import           Data.Aeson                     ( FromJSON
-                                                , ToJSON
-                                                , Options
-                                                , SumEncoding ( TaggedObject )
-                                                , encode
-                                                , decode
-                                                , decodeStrict
-                                                , eitherDecodeStrict
-                                                , defaultOptions
-                                                , sumEncoding
-                                                , tagFieldName
-                                                , contentsFieldName
-                                                , constructorTagModifier
-                                                , tagSingleConstructors
-                                                )
+import           Data.Aeson
 import           Data.ByteString                ( ByteString
                                                 , packCString
                                                 , useAsCString
@@ -43,9 +29,11 @@ import           Data.ByteString.Lazy           ( fromStrict
                                                 , toStrict
                                                 )
 import           Data.Char                     as Char
-import           Foreign
+import           Foreign                        ( Ptr
+                                                , nullPtr
+                                                )
 import           Foreign.C.String               ( CString )
-import           Foreign.C.Types                ( CDouble( CDouble ) )
+import           Foreign.C.Types                ( CDouble(CDouble) )
 
 type Client   = Ptr ()
 type Request  = CString
@@ -114,6 +102,7 @@ jsonOptions = defaultOptions {
     tagFieldName = "@type",
     contentsFieldName = undefined
   },
+  tagSingleConstructors = True,
   constructorTagModifier = \case
     ""     -> ""
     x : xs -> Char.toLower x : xs
