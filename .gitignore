@@ -5,3 +5,5 @@
 lib/*.dylib
 lib/*.so
 lib/*.dll
+error.log
+tdlib/
