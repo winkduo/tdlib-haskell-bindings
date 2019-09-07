@@ -55,8 +55,8 @@ data Update =
   | UpdateNewInlineQuery
   | UpdateNewMessage {
       message :: Message,
-      disable_notification :: Bool,
-      contains_mention :: Bool
+      disable_notification :: Maybe Bool,
+      contains_mention :: Maybe Bool
     }
   | UpdateNewPreCheckoutQuery
   | UpdateNewShippingQuery
