@@ -60,6 +60,7 @@ data Update =
     }
   | UpdateNewPreCheckoutQuery
   | UpdateNewShippingQuery
+  | UpdateNotificationSettings
   | UpdateOption
   | UpdateRecentStickers
   | UpdateSavedAnimations
