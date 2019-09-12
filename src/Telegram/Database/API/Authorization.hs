@@ -43,7 +43,7 @@ data AuthorizationState =
   | AuthorizationStateLoggingOut
   | AuthorizationStateReady
   | AuthorizationStateWaitCode {
-      is_registered    :: Bool,
+      is_registered    :: Maybe Bool,
       terms_of_service :: Maybe TermsOfService,
       code_info        :: AuthenticationCodeInfo
     }
