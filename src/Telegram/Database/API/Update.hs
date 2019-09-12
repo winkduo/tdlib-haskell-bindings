@@ -66,6 +66,7 @@ data Update =
   | UpdateSavedAnimations
   | UpdateScopeNotificationSettings
   | UpdateSecretChat
+  | UpdateSelectedBackground
   | UpdateServiceNotification
   | UpdateSupergroup
   | UpdateSupergroupFullInfo
