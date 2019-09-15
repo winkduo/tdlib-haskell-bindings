@@ -100,10 +100,9 @@ jsonOptions :: Options
 jsonOptions = defaultOptions {
   sumEncoding = TaggedObject {
     tagFieldName = "@type",
-    contentsFieldName = undefined
+    contentsFieldName = ""
   },
   tagSingleConstructors = True,
-  constructorTagModifier = \case
-    ""     -> ""
-    x : xs -> Char.toLower x : xs
+  omitNothingFields = True,
+  constructorTagModifier = map Char.toLower
 }
