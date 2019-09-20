@@ -104,5 +104,7 @@ jsonOptions = defaultOptions {
   },
   tagSingleConstructors = True,
   omitNothingFields = True,
-  constructorTagModifier = map Char.toLower
+  constructorTagModifier = \case
+    "" -> ""
+    x : xs -> Char.toLower x : xs
 }

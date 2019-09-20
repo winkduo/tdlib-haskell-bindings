@@ -7,6 +7,7 @@ import           Data.Text
 import           GHC.Generics
 import           Telegram.Database.API.Authorization
 import           Telegram.Database.API.Messages
+import           Telegram.Database.API.User
 import           Telegram.Database.JSON        as TDLib
 
 data Update = 
@@ -74,11 +75,14 @@ data Update =
   | UpdateTrendingStickerSets
   | UpdateUnreadChatCount
   | UpdateUnreadMessageCount
-  | UpdateUser
+  | UpdateUser {
+      user :: User
+    }
   | UpdateUserChatAction
   | UpdateUserFullInfo
   | UpdateUserPrivacySettingRules
   | UpdateUserStatus
+  | UpdateHavePendingNotifications
   | Ok
     deriving (Show, Generic)
 
