@@ -2,46 +2,55 @@
 {-# LANGUAGE LambdaCase #-}
 
 module Telegram.Database.JSON
-  ( Client
-  , create
-  , sendJSON
-  , receiveJSON
-  , receiveJSONWithTimeout
-  , executeJSON
-  , send
-  , receive
-  , receiveWithTimeout
-  , execute
-  , receiveEither
-  , receiveEitherWithTimeout
-  , executeEither
-  , destroy
-  , jsonOptions
+  ( Client,
+    create,
+    sendJSON,
+    receiveJSON,
+    receiveJSONWithTimeout,
+    executeJSON,
+    send,
+    receive,
+    receiveWithTimeout,
+    execute,
+    receiveEither,
+    receiveEitherWithTimeout,
+    executeEither,
+    destroy,
+    jsonOptions,
   )
 where
 
-import           Data.Aeson
-import           Data.ByteString                ( ByteString
-                                                , packCString
-                                                , useAsCString
-                                                )
-import           Data.ByteString.Lazy           ( toStrict )
-import           Data.Char                     as Char
-import           Foreign                        ( Ptr
-                                                , nullPtr
-                                                )
-import           Foreign.C.String               ( CString )
-import           Foreign.C.Types                ( CDouble(CDouble) )
+import Data.Aeson
+import Data.ByteString
+  ( ByteString,
+    packCString,
+    useAsCString,
+  )
+import Data.ByteString.Lazy (toStrict)
+import Data.Char as Char
+import Foreign
+  ( Ptr,
+    nullPtr,
+  )
+import Foreign.C.String (CString)
+import Foreign.C.Types (CDouble (CDouble))
 
-type Client   = Ptr ()
-type Request  = CString
+type Client = Ptr ()
+
+type Request = CString
+
 type Response = CString
-type Timeout  = CDouble
 
-foreign import ccall "libtdjson td_json_client_create"  c_create  :: IO Client
-foreign import ccall "libtdjson td_json_client_send"    c_send    :: Client -> Request -> IO ()
+type Timeout = CDouble
+
+foreign import ccall "libtdjson td_json_client_create" c_create :: IO Client
+
+foreign import ccall "libtdjson td_json_client_send" c_send :: Client -> Request -> IO ()
+
 foreign import ccall "libtdjson td_json_client_receive" c_receive :: Client -> Timeout -> IO Response
+
 foreign import ccall "libtdjson td_json_client_execute" c_execute :: Client -> Request -> IO Response
+
 foreign import ccall "libtdjson td_json_client_destroy" c_destroy :: Client -> IO ()
 
 create :: IO Client
@@ -92,17 +101,19 @@ destroy = c_destroy
 safeCString :: CString -> IO (Maybe ByteString)
 safeCString str
   | str == nullPtr = return Nothing
-  | otherwise      = Just <$> packCString str
+  | otherwise = Just <$> packCString str
 
 jsonOptions :: Options
-jsonOptions = defaultOptions {
-  sumEncoding = TaggedObject {
-    tagFieldName = "@type",
-    contentsFieldName = ""
-  },
-  tagSingleConstructors = True,
-  omitNothingFields = True,
-  constructorTagModifier = \case
-    "" -> ""
-    x : xs -> Char.toLower x : xs
-}
+jsonOptions =
+  defaultOptions
+    { sumEncoding =
+        TaggedObject
+          { tagFieldName = "@type",
+            contentsFieldName = ""
+          },
+      tagSingleConstructors = True,
+      omitNothingFields = True,
+      constructorTagModifier = \case
+        "" -> ""
+        x : xs -> Char.toLower x : xs
+    }

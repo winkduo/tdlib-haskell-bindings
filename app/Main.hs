@@ -1,10 +1,10 @@
 module Main
-  ( main
+  ( main,
   )
 where
 
-import           Telegram.Client
-import           Telegram.Database.JSON        as TDLib
+import Telegram.Client
+import Telegram.Database.JSON as TDLib
 
 main :: IO ()
 main = do

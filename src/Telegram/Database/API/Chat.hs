@@ -7,7 +7,7 @@ where
 -- import Data.Aeson.Types
 -- import Data.Text
 -- import GHC.Exts
--- 
+--
 -- import qualified Data.ByteString as ByteString
 
 -- telegramBaseLink :: Text
@@ -17,7 +17,6 @@ where
 --   contentType :: Text,
 --   msgText :: Maybe Text
 -- } deriving (Show, Read, Eq)
-
 
 -- data Message = Message {
 --   messageId :: Integer,
@@ -76,7 +75,6 @@ where
 -- viewMessage client msg =
 --   send client $ encodeValue $ viewMessagesJSON msg
 
-
 -- getNewMessage :: ByteString.ByteString -> Result Message
 -- getNewMessage jsonStr = if isNewMessage then unpackState (getMessage maybeObj) else Error "Not new message"
 --   where
@@ -98,7 +96,6 @@ where
 --     isNewMessageImpl :: Result Text -> Bool
 --     isNewMessageImpl (Success "updateNewMessage") = True
 --     isNewMessageImpl _ = False
-
 
 -- instance FromJSON Content where
 --   parseJSON = withObject "content" $ \o -> do

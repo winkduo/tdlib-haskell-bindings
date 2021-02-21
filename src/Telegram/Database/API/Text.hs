@@ -1,24 +1,22 @@
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module Telegram.Database.API.Text
-  ( FormattedText
+  ( FormattedText,
   )
 where
 
-import           Data.Aeson
-import           Data.Aeson.Types               ( FromJSON
-                                                , ToJSON 
-                                                )
+import Data.Aeson
+import Data.Aeson.Types
+  ( FromJSON,
+    ToJSON,
+  )
+import GHC.Generics (Generic)
+import qualified Telegram.Database.JSON as TDLib
 
-import           GHC.Generics                   ( Generic )
-
-import qualified Telegram.Database.JSON        as TDLib
-
-data FormattedText = 
-  FormattedText {
-    text :: String
-    -- entities :: []
+data FormattedText = FormattedText
+  { text :: String
+  -- entities :: []
   }
   deriving (Show, Generic) -- TODO
 
