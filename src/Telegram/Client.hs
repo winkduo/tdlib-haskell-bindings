@@ -1,9 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
-module Telegram.Client where
+module Telegram.Client
+  ( process,
+    defaultHandler
+  )
+where
 
-import           Data.Aeson
 import qualified Data.Text                     as Text
 import           Telegram.Database.API.Authorization
 import           Telegram.Database.API.Update
@@ -15,8 +18,8 @@ process handle client = do
   update <- TDLib.receiveEither client :: IO (Either String Update)
   case update of
     Left "NULL"  -> process handle client
-    Left error   -> putStrLn error       >> process handle client
-    Right update -> handle update client >> process handle client
+    Left err   -> putStrLn err       >> process handle client
+    Right update' -> handle update' client >> process handle client
 
 defaultHandler :: Update -> Client -> IO ()
 defaultHandler UpdateAuthorizationState {..} = 
@@ -34,13 +37,13 @@ updateAuthorizationState state client = case state of
     return ()
   AuthorizationStateReady ->
     return ()
-  AuthorizationStateWaitCode isRegistered termsOfService codeInfo -> do
+  AuthorizationStateWaitCode _isRegistered _termsOfService _codeInfo -> do
     putStrLn "Please, enter verification code:"
     code <- Text.pack <$> getLine
     checkAuthenticationCode code "" "" client
-  AuthorizationStateWaitEncryptionKey isEncrypted ->
+  AuthorizationStateWaitEncryptionKey _isEncrypted ->
     checkDatabaseEncryptionKey "" client
-  AuthorizationStateWaitPassword passwordHint hasRecoveryEmailAddress recoveryEmailAddressPattern -> do
+  AuthorizationStateWaitPassword _passwordHint _hasRecoveryEmailAddress _recoveryEmailAddressPattern -> do
     putStrLn "Please, enter password:"
     password <- Text.pack <$> getLine
     checkAuthenticationPassword password client

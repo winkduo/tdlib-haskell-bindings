@@ -25,9 +25,7 @@ import           Data.ByteString                ( ByteString
                                                 , packCString
                                                 , useAsCString
                                                 )
-import           Data.ByteString.Lazy           ( fromStrict
-                                                , toStrict
-                                                )
+import           Data.ByteString.Lazy           ( toStrict )
 import           Data.Char                     as Char
 import           Foreign                        ( Ptr
                                                 , nullPtr

@@ -1,9 +1,12 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric           #-}
+{-# OPTIONS -fno-warn-partial-fields #-}
 
-module Telegram.Database.API.Update where
+module Telegram.Database.API.Update
+  ( Update (..)
+  )
+where
 
 import           Data.Aeson
-import           Data.Text
 import           GHC.Generics
 import           Telegram.Database.API.Authorization
 import           Telegram.Database.API.Messages

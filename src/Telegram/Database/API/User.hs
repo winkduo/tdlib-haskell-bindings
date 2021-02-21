@@ -1,7 +1,10 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
 
-module Telegram.Database.API.User where
+module Telegram.Database.API.User
+  ( User
+  )
+where
 
 import qualified Telegram.Database.JSON        as TDLib
 import           GHC.Generics                   ( Generic )

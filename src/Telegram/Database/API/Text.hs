@@ -1,7 +1,10 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
 
-module Telegram.Database.API.Text where
+module Telegram.Database.API.Text
+  ( FormattedText
+  )
+where
 
 import           Data.Aeson
 import           Data.Aeson.Types               ( FromJSON
@@ -11,7 +14,6 @@ import           Data.Aeson.Types               ( FromJSON
 import           GHC.Generics                   ( Generic )
 
 import qualified Telegram.Database.JSON        as TDLib
-import           Telegram.Database.JSON         ( Client )
 
 data FormattedText = 
   FormattedText {

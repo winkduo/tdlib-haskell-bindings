@@ -1,7 +1,10 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
-
-module Telegram.Database.API.Messages where
+{-# OPTIONS -fno-warn-partial-fields #-}
+module Telegram.Database.API.Messages
+  ( Message
+  )
+where
 
 import           Data.Aeson
 import           Data.Aeson.Types               ( FromJSON
@@ -14,7 +17,6 @@ import Data.Text as Text
 import           GHC.Generics                   ( Generic )
 
 import qualified Telegram.Database.JSON        as TDLib
-import           Telegram.Database.JSON         ( Client )
 import           Telegram.Database.API.Text     ( FormattedText )
 
 data MessageSendingState = 
@@ -132,7 +134,7 @@ newtype Int64String =
   deriving (Show, Generic)
 
 instance ToJSON Int64String where
-  toJSON (Int64String int) = String . Text.pack . show . fromIntegral $ int
+  toJSON (Int64String int) = String . Text.pack . show $ (fromIntegral int :: Integer)
   {-# INLINE toJSON #-}
 
 instance FromJSON Int64String where

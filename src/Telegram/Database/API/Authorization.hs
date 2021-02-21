@@ -1,12 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# OPTIONS -fno-warn-partial-fields #-}
+module Telegram.Database.API.Authorization
+  ( AuthorizationState (..),
+    TdlibParameters (..),
 
-module Telegram.Database.API.Authorization where
+    checkAuthenticationCode,
+    checkDatabaseEncryptionKey,
+    checkAuthenticationPassword,
+
+    setAuthenticationPhoneNumber,
+    setTdlibParameters,
+
+    defaultTdlibParameters
+  )
+where
 
 import           Data.Aeson
 import           Data.Aeson.Types               ( ToJSON, FromJSON )
-import qualified Data.Char                     as Char
 import           Data.Int
 import           Data.Text                      ( Text )
 import           GHC.Generics                   ( Generic )
